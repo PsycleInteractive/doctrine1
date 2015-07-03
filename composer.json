@@ -1,5 +1,5 @@
 {
-    "name": "PsycleInteractive/doctrine1",
+    "name": "psycle-interactive/doctrine1",
     "type": "library",
     "description": "PHP5 Database ORM",
     "keywords": ["orm", "database"],
