@@ -31,4 +31,36 @@
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Util extends Doctrine_Connection_Module
-{ }
+{ 
+	/**
+	 * array_diff for multi dimensional arrays.
+	 * 
+	 * Thanks to "firegun at terra dot com dot br" on the http://php.net/array_diff page
+	 * 
+	 * @param array $aArray1
+	 * @param array $aArray2
+	 * @return array
+	 */
+	public static function arrayRecursiveDiff($aArray1, $aArray2) {
+		$aReturn = array();
+
+		foreach ($aArray1 as $mKey => $mValue) {
+			if (array_key_exists($mKey, $aArray2)) {
+				if (is_array($mValue)) {
+					$aRecursiveDiff = static::arrayRecursiveDiff($mValue, $aArray2[$mKey]);
+					if (count($aRecursiveDiff)) {
+						$aReturn[$mKey] = $aRecursiveDiff;
+					}
+				} else {
+					if ($mValue != $aArray2[$mKey]) {
+						$aReturn[$mKey] = $mValue;
+					}
+				}
+			} else {
+				$aReturn[$mKey] = $mValue;
+			}
+		}
+
+		return $aReturn;
+	}
+}
